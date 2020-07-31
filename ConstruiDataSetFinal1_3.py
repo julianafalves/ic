@@ -13,17 +13,16 @@ df_final = pd.DataFrame() #dataframe final que será salvo como .csv
 
 for folder in folders[0:4]:
     #file = list()
-    file = os.listdir(f'./adni_gwas_v2/{folder}') #procura mais profundamente todos os .csv em todas as pastas indicadas
+    file = os.listdir(f'./adni_gwas_v2/{folder}') #procura mais os .csv de cada iniduod em todas as pastas indicadas
     for id in file:
         csv = pd.read_csv(f'./adni_gwas_v2/{folder}/{id}', engine='python', encoding = "utf-8-sig",usecols=["SNP Name","Allele1 - AB","Allele2 - AB"]) #seleciona as colunas SNP Name e Allele1 - Top referente ao indviduo
-        df_auxiliar = pd.DataFrame()
         
         xlsx=pd.read_csv(f'NomesSnpsEAlelos.csv') #leitura do com os snps e seus respectivos genes
         xlsx = xlsx.loc[0].tolist()
         xlsx.remove('Name')
 
-        snp_names_main = xlsx #snps principais, que estamos buscando em cada individuo
-        snp_names_sec = csv['SNP Name'].values.tolist() #snps do individuo
+        snp_names_main = xlsx #snps principais, encontrados nos TOP 10 Genes da Alzgene
+        snp_names_sec = csv['SNP Name'].values.tolist() #snps de cada individuo 
         alelos_lis1 =csv['Allele1 - AB'].values.tolist() #alelos1  AB do individuo
         alelos_lis2 =csv['Allele2 - AB'].values.tolist() #alelos2 AB do individuo
 
@@ -33,7 +32,7 @@ for folder in folders[0:4]:
         ''' Encontra os SNPS de cada indíviduo'''
         for i in range(len(snp_names_main)):
             if(snp_names_main[i] in snp_names_sec): #compara os snps principais, na lista de snps do individuo.
-                if alelos_lis1[snp_names_sec.index(snp_names_main[i])] == 'A' and alelos_lis2[snp_names_sec.index(snp_names_main[i])] == 'a':
+                if alelos_lis1[snp_names_sec.index(snp_names_main[i])] == 'A' and alelos_lis2[snp_names_sec.index(snp_names_main[i])] == 'A':
                     list_alelles_final.append(0)
                 elif alelos_lis1[snp_names_sec.index(snp_names_main[i])] == 'B' and alelos_lis2[snp_names_sec.index(snp_names_main[i])] == 'B':
                     list_alelles_final.append(1)
@@ -41,10 +40,11 @@ for folder in folders[0:4]:
                     list_alelles_final.append(2)
                 #print(list_alelles_final)
             else:
-                list_alelles_final.append('')
+                list_alelles_final.append(None)
+                #print(list_alelles_final)
 
         dict_ids_e_alelos[id]=list_alelles_final        
-        print(list_alelles_final)
+        #print(list_alelles_final)
         
 
         '''cria lista de diagnósticos'''
