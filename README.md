@@ -1,4 +1,4 @@
-# ic
+# iniciação científica
 Primeiro projeto de ic - Utilizando machine learning para predição de casos de Alzheimer 
 
 Etapas de mineração dos dados:  
@@ -10,6 +10,7 @@ Etapas de mineração dos dados:
 2 - Obtenção dos dados da ADNI contendo os dados dos individudos (SNPs,Alelos e Diagnosticos)  
 
 3 - Merge dos dados dos indívduos do ADNI com os dados do NCBI  
+- Utilizou-se a biblioteca Pandas para mergir os dados
 
 4 - Analise dos dados 
-
+- Todos os indivíduos tem os mesmos SNPs com alelos diferentes 
