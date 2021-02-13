@@ -3,3 +3,6 @@ Extração SNPS E ALELOS/
 Results _SNPS_top10Cromo/
 adni_gwas_v2.zip
 diagnosticos/
+Dados limpos/all_ids_0_to_3.csv
+Dados limpos/all_ids_4_to_7.csv
+Dados limpos/all_ids_8_to_end.csv
